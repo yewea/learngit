@@ -17,6 +17,12 @@ class Interact(object):
             n += 1
 
 
+class User(object):
+    def __init__(self, name, code):
+        self.name = name
+        self.code = code
+
+
 Try = Interact("user1", "user2")
 first = input()
 while first != '0':
