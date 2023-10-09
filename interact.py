@@ -21,7 +21,7 @@ class Interact(object):
             n += 1
 # 显示聊天记录，暂时用于程序测试
 
-
+# 用户，调试程序用
 class User(object):
     def __init__(self, name, code):
         self.name = name
