@@ -7,6 +7,8 @@ class Interact(object):
         self.messages = []
 
     def add_information(self, sender, information):
+        if len(self.messages) >= 10:
+            self.messages.pop(0)
         self.messages.append([sender, information])
 # 添加聊天记录，可设置一个记录消息的上限，超过上限的部分可以删除
 
@@ -17,9 +19,10 @@ class Interact(object):
     def show(self):
         n = 0
         while n != len(self.messages):
-            print(self.messages[n][0], ':', self.messages[n][1], '\n')
+            print(self.messages[n][0], ':', self.messages[n][1])
             n += 1
 # 显示聊天记录，暂时用于程序测试
+
 
 # 用户，调试程序用
 class User(object):
