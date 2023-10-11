@@ -9,18 +9,19 @@ class Interact(object):
         self.messages = []
         if not os.path.exists("./messages"):
             os.mkdir("./messages")
+        else:
+            if os.path.exists("./messages/"+self.u1+self.u2+".txt"):
+                doc = open("./messages/"+self.u1+self.u2+".txt", "r")
+                news = doc.readlines()
+                for line in news:
+                    if ":" in line:
+                        sender, information = line.split(":")
+                        self.add_information(sender, information[:-1])
+                doc.close()
 # 生成存放消息的文件夹
 
     def add_information(self, sender, information):
         if len(self.messages) >= 100:
-            if not os.path.exists("./messages/"+self.u1+self.u2+".txt"):
-                doc = open(file="./messages/" + self.u1 + self.u2, mode="w")
-                doc.write(self.messages[0][0] + ":" + self.messages[0][1] + "\n")
-                doc.close()
-            else:
-                doc = open(file="./messages/" + self.u1 + self.u2 + ".txt", mode="a")
-                doc.write(self.messages[0][0] + ":" + self.messages[0][1] + "\n")
-                doc.close()
             self.messages.pop(0)
         self.messages.append([sender, information])
 # 添加聊天记录，可设置一个记录消息的上限，超过上限的部分可以删除
@@ -37,26 +38,15 @@ class Interact(object):
 # 显示聊天记录，暂时用于程序测试
 
     def close(self):
+        doc = open(file="./messages/" + self.u1 + self.u2 + ".txt", mode="w")
         while len(self.messages):
-            if not os.path.exists("./messages/"+self.u1+self.u2+".txt"):
-                doc = open(file="./messages/" + self.u1 + self.u2, mode="w")
-                doc.write(self.messages[0][0] + ":" + self.messages[0][1] + "\n")
-                doc.close()
-            else:
-                doc = open(file="./messages/" + self.u1 + self.u2 + ".txt", mode="a")
-                doc.write(self.messages[0][0] + ":" + self.messages[0][1] + "\n")
-                doc.close()
+            doc.write(self.messages[0][0] + ":" + self.messages[0][1] + "\n")
             self.messages.pop(0)
-
-
-# 用户，调试程序用
-class User(object):
-    def __init__(self, name, code):
-        self.name = name
-        self.code = code
+        doc.close()
 
 
 Try = Interact("user1", "user2")
+Try.show()
 first = input()
 while first != '0':
     Try.add_information(Try.u1, first)
